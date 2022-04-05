@@ -17,6 +17,18 @@ export class ProductsComponent implements OnInit {
   products: product [] = [  ];
   today = new Date();
   date = new Date(2022, 4, 4);
+  showProductsDetail = false;
+  productChosen: product = {
+    id: '',
+    title:'',
+    images:[],
+    price:0,
+    description: '',
+    category: {
+      id: '',
+      name: ''
+    } 
+  };
 
   constructor(
 
@@ -38,5 +50,17 @@ export class ProductsComponent implements OnInit {
   onAddToShopingCart(product: product){
     this.StoreServices.addProduct(product);
     this.total = this.StoreServices.getTotal();
+  }
+
+  toggleProductDetail(){
+    this.showProductsDetail = !this.showProductsDetail;
+  }
+
+  onshowDetail (id: string){
+    this.productsService.getProduct(id)
+    .subscribe(data => {
+      this.toggleProductDetail();
+      this.productChosen = data;
+  })
   }
 }

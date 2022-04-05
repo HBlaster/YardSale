@@ -9,13 +9,18 @@ import { product } from '../models/product.model';
 })
 export class ProductsService {
 
+  private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
   constructor(
     private http: HttpClient
   ) { }
 
   getAllProducts(){
-
-    return this.http.get<product[]>('https://fakestoreapi.com/products');
+    return this.http.get<product[]>(this.apiUrl);
   }
+
+  getProduct(id: string) {
+    return this.http.get<product>(`${this.apiUrl}/${id}`);
+  }
+
 
 }

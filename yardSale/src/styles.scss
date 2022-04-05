@@ -3,6 +3,11 @@
 @import url(./styles/reset.scss);
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
+@import 'swiper/scss';
+@import 'swiper/scss/navigation';
+@import 'swiper/scss/pagination';
+
+
 *{
   font-family: 'Quicksand', sans-serif;
 }

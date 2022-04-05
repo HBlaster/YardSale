@@ -2,6 +2,23 @@
   La cantidad {{myShopingCart.length}}
 </p>
 <p>Total: $ {{total}}</p>
+
 <div class="products--grid">
-  <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShopingCart($event)" ></app-product>
+  <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShopingCart($event)" 
+  (showProduct)="onshowDetail($event)" ></app-product>
+</div>
+
+<div class="product-detail" [class.active]="showProductsDetail">
+  <div *ngIf="productChosen" >
+    <button (click)="toggleProductDetail()">close</button>
+    <h1>{{productChosen.title}}</h1>
+    <swiper
+      [slidesPerView]="1"
+    >
+      <ng-template swiperSlide *ngFor="let img of productChosen.images" >
+        <img [src]="img" alt="image of the product">
+      </ng-template>
+    </swiper>
+    <h1>{{productChosen.description}}</h1>
+  </div>
 </div>
