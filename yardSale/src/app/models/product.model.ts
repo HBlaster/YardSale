@@ -11,3 +11,7 @@ export interface product {
   description: string;
   category: category;
 }
+
+export interface CreateProductDTO extends Omit<product, 'id' | 'category'> {
+  categoryId: number;
+}
