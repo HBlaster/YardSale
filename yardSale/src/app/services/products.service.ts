@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-import { product, CreateProductDTO } from '../models/product.model';
+import { product, CreateProductDTO, UpdateproductDTO } from '../models/product.model';
 
 
 
@@ -23,7 +23,14 @@ export class ProductsService {
   }
 
   create  (dto: CreateProductDTO){
-    return this.http.post<product>('https://young-sands-07814.herokuapp.com/api/products', dto);
+    return this.http.post<product>(this.apiUrl, dto);
+  }
+
+  //put y patch para hacer actualizaciones en arreglos de datos
+  //put se usa cuando quieres enviar la informacion de todo el arreglo
+  //patch se usa cuando s va a cambiar unicamente uno o algunos valores del arreglo.
+  update (id: string, dto: UpdateproductDTO){
+    return this.http.patch<product>(`${this.apiUrl}/${id}`, dto);
   }
 
 }

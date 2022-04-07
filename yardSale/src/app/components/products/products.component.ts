@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {product, CreateProductDTO} from '../../models/product.model';
+import {product, CreateProductDTO, UpdateproductDTO} from '../../models/product.model';
 
 import {StoreService} from '../../services/store.service';
 import {ProductsService} from '../../services/products.service'
@@ -77,5 +77,11 @@ export class ProductsComponent implements OnInit {
     .subscribe((data) => {
       this.products.unshift(data);
     });
-  };
+  }
+
+  updateProduct(){
+
+  }
+
+
 }
