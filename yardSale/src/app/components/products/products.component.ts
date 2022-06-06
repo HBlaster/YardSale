@@ -1,87 +1,103 @@
 import { Component, OnInit } from '@angular/core';
 
-import {product, CreateProductDTO, UpdateproductDTO} from '../../models/product.model';
+import {
+  product,
+  CreateProductDTO,
+  UpdateproductDTO,
+} from '../../models/product.model';
 
-import {StoreService} from '../../services/store.service';
-import {ProductsService} from '../../services/products.service'
+import { StoreService } from '../../services/store.service';
+import { ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-
   myShopingCart: product[] = [];
   total = 0;
-  products: product [] = [  ];
+  products: product[] = [];
   today = new Date();
   date = new Date(2022, 4, 4);
   showProductsDetail = false;
   productChosen: product = {
     id: '',
-    title:'',
-    images:[],
-    price:0,
+    title: '',
+    images: [],
+    price: 0,
     description: '',
     category: {
       id: '',
-      name: ''
-    } 
+      name: '',
+    },
   };
 
   constructor(
-
     private StoreServices: StoreService,
     private productsService: ProductsService
-
   ) {
-    this.myShopingCart = this.StoreServices.getShoppingCart()
-
+    this.myShopingCart = this.StoreServices.getShoppingCart();
   }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts()
-    .subscribe(data => {
+    this.productsService.getAllProducts().subscribe((data) => {
       this.products = data;
     });
   }
 
-  onAddToShopingCart(product: product){
+  onAddToShopingCart(product: product) {
     this.StoreServices.addProduct(product);
     this.total = this.StoreServices.getTotal();
   }
 
-  toggleProductDetail(){
+  toggleProductDetail() {
     this.showProductsDetail = !this.showProductsDetail;
   }
 
-  onshowDetail (id: string){
-    this.productsService.getProduct(id)
-    .subscribe(data => {
+  onshowDetail(id: string) {
+    this.productsService.getProduct(id).subscribe((data) => {
       this.toggleProductDetail();
       this.productChosen = data;
-    })
+    });
   }
 
-  createNewProduct (){
+  createNewProduct() {
     const product: CreateProductDTO = {
-    categoryId: 2,
-    title:'Nuevo producto',
-    images:['https://placeimg.com/640/480/any'],
-    price: 1000,
-    description: 'this is a new product',
-    
-    }
-    this.productsService.create(product)
-    .subscribe((data) => {
+      categoryId: 2,
+      title: 'Nuevo producto',
+      images: ['https://placeimg.com/640/480/any'],
+      price: 1000,
+      description: 'this is a new product',
+    };
+    this.productsService.create(product).subscribe((data) => {
       this.products.unshift(data);
     });
   }
 
-  updateProduct(){
-
+  updateProduct() {
+    const changes: UpdateproductDTO = {
+      title: 'change title',
+    };
+    const id = this.productChosen.id;
+    this.productsService.update(id, changes).subscribe((data) => {
+      const productIndex = this.products.findIndex(
+        (item) => item.id === this.productChosen.id
+      );
+      this.products[productIndex] = data;
+    });
   }
 
+  deleteProduct (){
+    const id = this.productChosen.id;
+    this.productsService.delete(id)
+    .subscribe(() => {
+      const productIndex = this.products.findIndex(
+        (item) => item.id === this.productChosen.id
+      );
+      this.products.splice(productIndex, 1);
+      this.showProductsDetail = !this.showProductsDetail
+    })
+  }
 
 }

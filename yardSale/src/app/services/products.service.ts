@@ -30,7 +30,11 @@ export class ProductsService {
   //put se usa cuando quieres enviar la informacion de todo el arreglo
   //patch se usa cuando s va a cambiar unicamente uno o algunos valores del arreglo.
   update (id: string, dto: UpdateproductDTO){
-    return this.http.patch<product>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<product>(`${this.apiUrl}/${id}`, dto);
+  }
+
+  delete (id: string){
+    return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
   }
 
 }

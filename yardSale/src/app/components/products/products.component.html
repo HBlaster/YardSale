@@ -6,7 +6,7 @@
 <p>Total: $ {{total}}</p>
 
 <div class="products--grid">
-  <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShopingCart($event)" 
+  <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShopingCart($event)"
   (showProduct)="onshowDetail($event)" ></app-product>
 </div>
 
@@ -24,6 +24,10 @@
     <P>{{productChosen.description}}</P>
     <BUtton (click)="updateProduct()" >
       Editar
+    </BUtton>
+
+    <BUtton (click)="deleteProduct()" >
+      Eliminar
     </BUtton>
   </div>
 </div>
