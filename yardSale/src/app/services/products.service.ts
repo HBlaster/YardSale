@@ -19,7 +19,7 @@ export class ProductsService {
   }
 
   getProductsByPage(limit: number, offset:number ){
-    return this.http.get<product> (`${this.apiUrl}`, {
+    return this.http.get<product[]> (`${this.apiUrl}`, {
       params: {limit, offset}
     })
   }

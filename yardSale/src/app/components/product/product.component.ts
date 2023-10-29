@@ -9,6 +9,8 @@ import {product} from '../../models/product.model';
 })
 export class ProductComponent implements OnInit {
 
+  Image: string;
+
   @Input() product: product = {
     id: '',
     title:'',
@@ -19,13 +21,14 @@ export class ProductComponent implements OnInit {
       id: '',
       name: ''
     }
-
   }
   @Output() addedProduct = new EventEmitter<product>();
   @Output() showProduct = new EventEmitter<string>();
-  constructor() { }
+  constructor() { 
+    this.Image = "https://source.unsplash.com/1600x900/?portrait"; }
 
   ngOnInit(): void {
+     
   }
 
   onAddToCart(){
