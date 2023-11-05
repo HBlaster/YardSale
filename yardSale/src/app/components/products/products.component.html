@@ -1,4 +1,5 @@
 <button (click)="createNewProduct()" >create</button>
+<button (click)="onshowDetail('46846468467687')" >detail not found</button>
 
 <p>
   La cantidad {{myShopingCart.length}}
@@ -12,6 +13,7 @@
 </div>
 
 <div class="product-detail" [class.active]="showProductsDetail">
+  {{statusDetail}}
   <div *ngIf="productChosen" >
     <button (click)="toggleProductDetail()">close</button>
     <h1>{{productChosen.title}}</h1>
